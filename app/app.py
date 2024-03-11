@@ -12,8 +12,9 @@ app.layout = dcc.Loading(  # <- Wrap App with Loading Component
     children=[
         html.Div(
             [
-                NAVBAR,
+                dbc.Row(dbc.Col(NAVBAR)),
                 dash.page_container
+
             ]
         )
     ],
