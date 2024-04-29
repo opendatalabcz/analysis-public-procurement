@@ -3,6 +3,29 @@ import numpy as np
 from numpy import sqrt
 from math import sin, cos, atan2, radians
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import balanced_accuracy_score, f1_score, roc_auc_score, confusion_matrix, ConfusionMatrixDisplay
+import matplotlib.pyplot as plt
+
+def print_metrics(model, X_data, y_data, retype_pred=False, ptitle="Matice záměn"):
+    predictions = model.predict(X_data)
+    if retype_pred:
+        predictions = predictions.astype("str")
+    ba = balanced_accuracy_score(y_data.astype("str"), predictions)
+    f1_micro = f1_score(y_data.astype("str"), predictions, average="micro")
+    f1_macro = f1_score(y_data.astype("str"), predictions, average="macro")
+    ra = roc_auc_score(y_data.astype("str"), model.predict_proba(X_data)[:,1])
+    print(f"Balanced accuracy: {ba}")
+    print(f"F1 score micro: {f1_micro}")
+    print(f"F1 score macro: {f1_macro}")
+    print(f"RocAuc score: {ra}")
+    print("Confusion matrix:")
+    ConfusionMatrixDisplay(confusion_matrix(y_data.astype("str"), predictions)).plot(cmap='Blues')
+    plt.xlabel('Predikce modelu')
+    plt.ylabel('Skutečnost')
+    plt.title(ptitle)
+    plt.tick_params(axis=u'both', which=u'both',length=0)
+    plt.grid(False)
+    plt.show()
 
 
 def get_distance(id_company, id_contracter, address):
@@ -60,6 +83,8 @@ class Preprocessor:
         contracting_authority = pd.read_csv(self.file_name + '/contracting_authority.csv', low_memory=False)
         offer = pd.read_csv(self.file_name + '/offer.csv', low_memory=False)
         procurement = pd.read_csv(self.file_name + '/procurement.csv', low_memory=False)
+
+
         return {'address': address, 'company': company, 'contact_person': contact_person,
                 'contracting_authority': contracting_authority, 'offer': offer, 'procurement': procurement}
 

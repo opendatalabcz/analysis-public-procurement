@@ -1,4 +1,5 @@
 import dash
+import dash_bootstrap_components as dbc
 from dash import html, dcc
 
 dash.register_page(__name__,
@@ -9,11 +10,24 @@ dash.register_page(__name__,
 
 
 def layout():
-    layout = html.Div([
-        html.H1(
-            [
-                "Contracting authority"
-            ]
+    layout = dbc.Container([
+        dbc.Row(
+            dbc.Col(
+                html.Div(html.H3(["Zadavatelé veřejných zakázek"]))
+            ),
+            align="center"
+        ),
+        dbc.Row(
+            dbc.Col(
+                html.Div(html.H6(["Nějaký text"]))
+            ),
+            align="center"
+        ),
+        dbc.Row(
+            dbc.Col(
+                dbc.Input(id="searchbar", placeholder="Zadejte název zadavetele", type="text")
+            ),
+            align="center"
         )
     ])
     return layout

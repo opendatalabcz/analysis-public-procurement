@@ -3,6 +3,7 @@ import dash_bootstrap_components as dbc
 
 def create():
     navbar = dbc.NavbarSimple(
+        id="navbar",
         children=[
             dbc.Row(
                 [dbc.Col(dbc.NavItem(
@@ -21,7 +22,7 @@ def create():
                 class_name="d-flex align-items-center"
             )
         ],
-        fluid=True,
+        fluid=False,
         color="primary",
         links_left=True,
         sticky='Top',
