@@ -1,0 +1,13 @@
+catboost==1.2.2
+gower==0.1.2
+matplotlib~=3.8.2
+numpy==1.25.2
+optuna==3.6.0
+pandas~=2.1.4
+scikit_learn==1.3.2
+seaborn~=0.12.2
+shap==0.44.0
+ydata_profiling==4.6.3
+scikit-learn>=1.3.2
+plotly==5.18.0
+itables==2.0.0
