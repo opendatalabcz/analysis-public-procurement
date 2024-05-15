@@ -5,11 +5,17 @@ from math import sin, cos, atan2, radians
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import balanced_accuracy_score, f1_score, roc_auc_score, confusion_matrix, ConfusionMatrixDisplay
 import matplotlib.pyplot as plt
-import datetime as dt
-
-
 
 def print_metrics(model, X_data, y_data, retype_pred=False, ptitle="Matice záměn"):
+    """
+    This function prints the metrics of the model and plots the confusion matrix
+    :param model: model
+    :param X_data: data for prediction
+    :param y_data: true labels
+    :param retype_pred: whether to retype the predictions
+    :param ptitle: Title of the plot
+    """
+
     predictions = model.predict(X_data)
     if retype_pred:
         predictions = predictions.astype("str")
@@ -31,9 +37,17 @@ def print_metrics(model, X_data, y_data, retype_pred=False, ptitle="Matice zám�
     plt.show()
 
 
-def get_distance(id_company, id_contracter, address):
+def get_distance(id_company, id_contractor, address):
+    """
+    This function calculates the distance between two companies in km
+    :param id_company: id of the company
+    :param id_contractor: id of the contractor
+    :param address: dataframe of addresses
+    :return: distance between the two companies in km
+    """
+
     company_address = address.loc[address['id'] == id_company]
-    contracter_address = address.loc[address['id'] == id_contracter]
+    contracter_address = address.loc[address['id'] == id_contractor]
     try:
         lat1 = radians(company_address.latitude.iloc[0])
         lat2 = radians(contracter_address.latitude.iloc[0])
@@ -50,6 +64,9 @@ def get_distance(id_company, id_contracter, address):
 
 
 class Preprocessor:
+    """
+    This class preprocesses the data and returns the train, validation and test dataframes
+    """
     def __init__(self, file_name):
         self.file_name = file_name
         self.dataframes = self.get_dataframes()
@@ -77,7 +94,7 @@ class Preprocessor:
     def get_dataframes(self) -> dict:
         """
         This function reads the csv files and returns a dictionary of dataframes
-        :param file_name:
+        :param file_name: name of the file
         :return: dictionary of dataframes
         """
         address = pd.read_csv(self.file_name + '/address.csv', low_memory=False)
@@ -92,9 +109,8 @@ class Preprocessor:
 
     def get_predictions_dataframe(self) -> pd.DataFrame:
         """
-        This function preproccesses the data and returns a train, validation and test dataframes
-        :param dataframes: dictionary of dataframes
-        :return: dataframe of predictions
+        This function preprocesses the data and returns the train, validation and test dataframes
+        :return: train, validation and test dataframes and their labels, also the dataframes with all the columns
         """
         offer = self.dataframes['offer']
         procurement = self.__set_intervals()
@@ -193,6 +209,11 @@ class Preprocessor:
         return X_train, X_val, X_test, y_train, y_val, y_test, X_train_all, X_val_all, X_test_all
 
     def get_data_for_web(self, date=None) -> pd.DataFrame:
+        """
+        This function preprocesses the data and returns the data for the web
+        :param date: date for which the data is split
+        :return: preprocesses data for splits for the date and before the date
+        """
         offer = self.dataframes['offer']
         procurement = self.__set_intervals()
         company = self.dataframes['company']
