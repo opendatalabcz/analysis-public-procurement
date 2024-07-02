@@ -1,0 +1,7 @@
+Instead of this file, there should be data in CSV format. The data should be in the following format:
+    address.csv
+    company.csv
+    contact_person.csv
+    contracting_authority.csv
+    offer.csv
+    procurement.csv
