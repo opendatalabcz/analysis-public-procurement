@@ -26,6 +26,8 @@ COPY catboost_model_production /webpages/catboost_model_production
 # install the requirements
 RUN pip3.11 install -r /webpages/requirements.txt
 
+RUN chmod +x /generate.sh
+
 CMD /generate.sh
 
 
