@@ -101,9 +101,14 @@ class Preprocessor:
         company = pd.read_csv(self.file_name + '/company.csv', low_memory=False)
         contact_person = pd.read_csv(self.file_name + '/contact_person.csv', low_memory=False)
         contracting_authority = pd.read_csv(self.file_name + '/contracting_authority.csv', low_memory=False)
-        offer = pd.read_csv(self.file_name + '/offer.csv', low_memory=False)
-        procurement = pd.read_csv(self.file_name + '/procurement.csv', low_memory=False)
-
+        offer = pd.read_csv(self.file_name + '/offer.csv', low_memory=False, converters={
+            'is_association_of_suppliers': lambda x: True if x == 't' else False,
+            'is_rejected_due_too_low': lambda x: True if x == 't' else False,
+            'is_withdrawn': lambda x: True if x == 't' else False
+        })
+        procurement = pd.read_csv(self.file_name + '/procurement.csv', low_memory=False, converters={
+            'is_association_of_suppliers': lambda x: True if x == 't' else False
+        })
         return {'address': address, 'company': company, 'contact_person': contact_person,
                 'contracting_authority': contracting_authority, 'offer': offer, 'procurement': procurement}
 

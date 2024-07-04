@@ -10,8 +10,8 @@ Zdrojový kód těchto reportů je uložen v repozitáři
 Data pro práci byla získána z portálu [NEN](https://nen.nipez.cz/verejne-zakazky) a zpracována pomocí jazyka Python.
 Nicméně vzhledem k jejich velikosti, zde nejsou uložena.
 
-Data uložená ve složce by měly mít stukturu:
-- `název_složky`
+Data uložená ve složce musí dodržet následující stukturu:
+- `data`
   - `address.csv`: obsahuje informace o adresách
   - `company.csv`: obsahuje informace o firmách
   - `contact_person.csv`: obsahuje informace o kontaktních osobách
@@ -19,18 +19,19 @@ Data uložená ve složce by měly mít stukturu:
   - `offer.csv`: obsahuje informace o nabídkách
   - `public_procurement.csv`: obsahuje informace o veřejných zakázkách
 
-Třídě `Preprocesor` z modulu `preprocessing.py` je poté parametrem předána cesta ke složce s daty.
 
 ## Instalace
-Pro instalaci je potřeba si vytvořit virtuální prostředí a nainstalovat závislosti pomocí příkazu `pip install -r requirements.txt`.
-
-## Spuštění
-
-Pro vytvoření webové stránky je potřeba mít nainstalovan nástroj [Quarto](https://quarto.org/).
-Poté je potřeba spustit notebook `jupyter notebook webpages\public_procurements.ipynb` a následně spustit příkaz `quarto render public_procurements.ipynb` v příkazové řádce. Tím se vytvoří statická webová stránka ve formátu HTML.
+Pro spuštění všech JUPYTER notebooků je potřeba si vytvořit virtuální prostředí a nainstalovat závislosti pomocí příkazu `pip install -r requirements.txt`.
 
 ## Struktura repozitáře
 - `notebooks`:obsahuje zdrojové kódy ve formě jupyter notebooků
   - `models`: obsahuje natrénované modely
-- `webpages`: obsahuje zdrojový jupyter notebook pro webovou stránku
+- `webpages`: obsahuje zdrojový jupyter notebook pro webovou stránku a soubory pro vytvoření Docker image 
+  - `www`: složka s webovou stránkou, do které se automaticky vygeneruje HTML soubor
+    - `images`: složka s obrázky pro webovou stránku
+  - `data`: složka s daty pro webovou stránku
 
+## Vygenerování webové stránky
+Pro vygenerování webové stránky je potřeba vytvořit Docker image pomocí příkazu: `docker build --no_cache -t <název image> <cesta k Dockerfile>` a následně spustit kontejner pomocí příkazu: 
+` docker run -v <cesta ke složce s daty>:/webpages/data -v <cesta ke složce pro vygenerovaný HTML soubor>:/webpages/www web_python_image`
+Tento příkaz spustí Docker kontejner, který vygeneruje webovou stránku ze složky s daty a uloží ji do vybrané složky.
