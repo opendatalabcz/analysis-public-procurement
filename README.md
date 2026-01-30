@@ -35,3 +35,10 @@ Pro spuštění všech JUPYTER notebooků je potřeba si vytvořit virtuální p
 Pro vygenerování webové stránky je potřeba vytvořit Docker image pomocí příkazu: `docker build --no_cache -t <název image> <cesta k Dockerfile>` a následně spustit kontejner pomocí příkazu: 
 ` docker run -v <cesta ke složce s daty>:/webpages/data -v <cesta ke složce pro vygenerovaný HTML soubor>:/webpages/www web_python_image`
 Tento příkaz spustí Docker kontejner, který vygeneruje webovou stránku ze složky s daty a uloží ji do vybrané složky.
+
+***
+<img src="https://fit.cvut.cz/static/images/fit-cvut-logo-cs.svg" alt="logo FIT ČVUT" height="200">
+
+Tento software vznikl za podpory **Fakulty informačních technologií ČVUT v Praze**.
+Více informací naleznete na [fit.cvut.cz](https://fit.cvut.cz).
+Otevřený repozitář naleznete na [https://github.com/opendatalabcz/analysis-public-procurement](https://github.com/opendatalabcz/analysis-public-procurement).
